@@ -1,10 +1,11 @@
 import { model, Schema, Document } from 'mongoose';
-import { Werkproces } from '@interfaces/werkproces.interface';
+import { Kerntaak } from '@interfaces/kerntaak.interface';
+import { WerkprocesSchema } from '@models/werkproces.models';
 
 const { UUID, String } = Schema.Types;
 import { v4 as uuidv4 } from 'uuid';
 
-export const WerkprocesSchema: Schema = new Schema({
+export const KerntaakSchema: Schema = new Schema({
     id: {
         type: UUID,
         required: true,
@@ -16,6 +17,10 @@ export const WerkprocesSchema: Schema = new Schema({
         type: String,
         required: true,
         lowercase: true
+    },
+    part: {
+        type: String,
+        required: true,
     },
     name: {
         type: String,
@@ -29,18 +34,14 @@ export const WerkprocesSchema: Schema = new Schema({
         type: String,
         required: false,
     },
-    outcome: {
-        type: String,
+    werkprocessen: {
+        type: [WerkprocesSchema],
         required: false,
-    },
-    behaviour: {
-        type: String,
-        required: false,
-    },
+    }
 },
-{
-    timestamps: true
-}
+    {
+        timestamps: true
+    }
 );
 
-export const WerkprocesModel = model<Werkproces & Document>('Werkproces', WerkprocesSchema);
+export const KerntaakModel = model<Kerntaak & Document>('Kerntaak', KerntaakSchema);

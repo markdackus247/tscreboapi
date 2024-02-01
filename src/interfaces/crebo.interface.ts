@@ -20,6 +20,7 @@ export interface Crebo {
 
     
     id: string;
+    creboNumber: string;
     level: MBOLevels;
     name: string;
     description?: string;

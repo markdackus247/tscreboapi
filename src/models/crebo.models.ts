@@ -1,10 +1,11 @@
 import { model, Schema, Document } from 'mongoose';
-import { Werkproces } from '@interfaces/werkproces.interface';
+import { Crebo } from '@interfaces/crebo.interface';
+import { KerntaakSchema } from '@models/kerntaak.models';
 
 const { UUID, String } = Schema.Types;
 import { v4 as uuidv4 } from 'uuid';
 
-export const WerkprocesSchema: Schema = new Schema({
+export const CreboSchema: Schema = new Schema({
     id: {
         type: UUID,
         required: true,
@@ -12,16 +13,15 @@ export const WerkprocesSchema: Schema = new Schema({
         default: uuidv4(),
         immutable: true
     },
-    code: {
+    creboNumber: {
+        type: String,
+        required: true
+    },
+    level: {
         type: String,
         required: true,
-        lowercase: true
     },
     name: {
-        type: String,
-        required: true,
-    },
-    informalName: {
         type: String,
         required: true,
     },
@@ -29,18 +29,26 @@ export const WerkprocesSchema: Schema = new Schema({
         type: String,
         required: false,
     },
-    outcome: {
+    sbblink: {
         type: String,
         required: false,
     },
-    behaviour: {
+    kdpdflink: {
         type: String,
         required: false,
     },
+    fileCode: {
+        type: String,
+        required: false,
+    },
+    kerntaken: {
+        type: [KerntaakSchema],
+        required: false,
+    }
 },
-{
-    timestamps: true
-}
+    {
+        timestamps: true
+    }
 );
 
-export const WerkprocesModel = model<Werkproces & Document>('Werkproces', WerkprocesSchema);
+export const CreboModel = model<Crebo & Document>('Crebo', CreboSchema);

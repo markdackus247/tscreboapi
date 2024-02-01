@@ -4,7 +4,7 @@ export interface Werkproces {
     code: string;
     name: string;
     informalName: string;
-    descripton?: string;
+    description?: string;
     outcome?: string;
     behaviour?: string;
 }

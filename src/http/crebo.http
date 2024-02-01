@@ -1,0 +1,34 @@
+# baseURL
+@baseURL = http://localhost:3000
+
+###
+# Find All Users
+GET {{ baseURL }}/crebo
+
+###
+# Find User By Id
+GET {{ baseURL }}/crebo/1
+
+###
+# Create User
+POST {{ baseURL }}/crebo
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+    "password": "password"
+}
+
+###
+# Modify User By Id
+PUT {{ baseURL }}/crebo/1
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+    "password": "password"
+}
+
+###
+# Delete User By Id
+DELETE {{ baseURL }}/crebo/1
