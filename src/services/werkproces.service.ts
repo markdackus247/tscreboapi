@@ -18,6 +18,39 @@ export class WerkprocesService {
         return findWerkproces;
     }
 
+    public async update(werkprocesId: string, werkproces: Werkproces): Promise<Werkproces>{
+        const findWerkproces: Werkproces = await WerkprocesModel.findOne({ id: werkprocesId }).lean();
+        let updatedWerkproces: Werkproces;
+        let updatedWerkprocesById: Werkproces;
+
+        if (findWerkproces) {
+            updatedWerkproces = {
+                ...findWerkproces,
+                ...werkproces
+            }
+            
+            //TODO: Doesn't return the latest object.
+            return WerkprocesModel.findOneAndUpdate(
+                { id: werkprocesId },
+                { ...updatedWerkproces }
+            )
+            .lean()
+            .then(
+                updatedWerkprocesById => {
+                    return updatedWerkprocesById
+                }
+            )
+            .catch(
+                error => {
+                    throw new HttpException(409, `The workproces ${updatedWerkproces.code} doesn't exist `);
+                }
+            )
+
+        } else {
+            throw new HttpException(409, `The workproces ${updatedWerkproces.code} doesn't exist `);
+        }
+    }
+
     public async create(werkprocesData: Werkproces): Promise<Werkproces> {
         const createWerkprocesData: Werkproces = await WerkprocesModel.create({...werkprocesData});
         

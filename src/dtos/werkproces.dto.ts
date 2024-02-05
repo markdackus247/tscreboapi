@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength, IsUUID, isURL, IsUrl, IsAscii, IsAlphanumeric } from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength, IsUUID, isURL, IsUrl, IsAscii, IsAlphanumeric, IsOptional } from 'class-validator';
 import { version } from 'os';
 
 export class CreateWerkprocesDto {
@@ -51,11 +51,12 @@ export class CreateWerkprocesDto {
 }
 
 export class UpdateWerkprocesDto {
-    @IsNotEmpty()
-    @IsAscii()
-    @IsUUID(4)
+    // @IsAscii()
+    // @IsUUID(4)
+    @IsOptional()
     public id: string;
     
+    @IsOptional()
     @IsAscii()
     @IsString()
     @MaxLength(20, {
@@ -63,20 +64,21 @@ export class UpdateWerkprocesDto {
     })
     public code: string;
     
-    @IsAlphanumeric()
+    @IsOptional()
     @IsString()
     @MaxLength(100, {
         message: 'Naam opleiding is te lang. Maximaal 100 karakters.'
     })
     public name: string;
     
-    @IsAlphanumeric()
+    @IsOptional()
     @IsString()
     @MaxLength(30, {
         message: 'Informele naam opleiding is te lang. Maximaal 30 karakters.'
     })
     public informalName: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
@@ -84,6 +86,7 @@ export class UpdateWerkprocesDto {
     })
     public description: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
@@ -91,6 +94,7 @@ export class UpdateWerkprocesDto {
     })
     public outcome: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
