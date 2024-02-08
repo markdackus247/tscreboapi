@@ -39,7 +39,8 @@ export const WerkprocesSchema: Schema = new Schema({
     },
 },
 {
-    timestamps: true
+    timestamps: true,
+    collection: 'werkproces'
 }
 );
 

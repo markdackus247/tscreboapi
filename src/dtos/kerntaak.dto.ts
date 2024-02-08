@@ -1,13 +1,9 @@
-import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength, IsUUID, isURL, IsUrl, IsAscii, IsAlphanumeric, IsIn, ValidateNested } from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength, IsUUID, isURL, IsUrl, IsAscii, IsAlphanumeric, IsIn, ValidateNested, IsOptional } from 'class-validator';
 import { CreateWerkprocesDto, UpdateWerkprocesDto } from '@dtos/werkproces.dto'
 import { version } from 'os';
 
 export class CreateKerntaakDto {
-    @IsNotEmpty()
-    @IsAscii()
-    @IsUUID(4)
-    public id: string;
-    
+
     @IsNotEmpty()
     @IsAscii()
     @IsString()
@@ -16,14 +12,12 @@ export class CreateKerntaakDto {
     })
     public code: string;
 
-    @IsAlphanumeric()
     @IsIn(["basisdeel", "profieldeel", ""], {
         message: 'Waarde mag alleen basisdeel, profieldeel of leeg zijn.'
     })
     public part: string;
     
     @IsNotEmpty()
-    @IsAlphanumeric()
     @IsString()
     @MaxLength(100, {
         message: 'Naam opleiding is te lang. Maximaal 100 karakters.'
@@ -31,7 +25,6 @@ export class CreateKerntaakDto {
     public name: string;
     
     @IsNotEmpty()
-    @IsAlphanumeric()
     @IsString()
     @MaxLength(30, {
         message: 'Informele naam opleiding is te lang. Maximaal 30 karakters.'
@@ -50,11 +43,11 @@ export class CreateKerntaakDto {
 }
 
 export class UpdateKerntaakDto {
-    @IsNotEmpty()
+    @IsOptional()
     @IsAscii()
-    @IsUUID(4)
     public id: string;
     
+    @IsOptional()
     @IsAscii()
     @IsString()
     @MaxLength(20, {
@@ -62,26 +55,27 @@ export class UpdateKerntaakDto {
     })
     public code: string;
 
-    @IsAlphanumeric()
+    @IsOptional()
     @IsIn(["basisdeel", "profieldeel", ""], {
         message: 'Waarde mag alleen basisdeel, profieldeel of leeg zijn.'
     })
     public part: string;
     
-    @IsAlphanumeric()
+    @IsOptional()
     @IsString()
     @MaxLength(100, {
         message: 'Naam opleiding is te lang. Maximaal 100 karakters.'
     })
     public name: string;
     
-    @IsAlphanumeric()
+    @IsOptional()
     @IsString()
     @MaxLength(30, {
         message: 'Informele naam opleiding is te lang. Maximaal 30 karakters.'
     })
     public informalName: string;
-    
+
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
@@ -89,6 +83,7 @@ export class UpdateKerntaakDto {
     })
     public description: string;
     
+    @IsOptional()
     @ValidateNested()
     public werkprocessen: UpdateWerkprocesDto[];
 }

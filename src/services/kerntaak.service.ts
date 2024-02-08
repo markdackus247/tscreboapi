@@ -5,16 +5,58 @@ import { KerntaakModel } from '@/models/kerntaak.models';
 
 @Service()
 export class KerntaakService {
-    public async findAll(): Promise<Kerntaak[]> {
-        const kerntaken: Kerntaak[] = await KerntaakModel.find();
-        
-        return kerntaken;
+  public async findAll(): Promise<Kerntaak[]> {
+    const kerntaken: Kerntaak[] = await KerntaakModel.find().lean();
+
+    return kerntaken;
+  }
+
+  public async findById(kerntaakId: string): Promise<Kerntaak> {
+    const findKerntaak: Kerntaak = await KerntaakModel.findOne({ id: kerntaakId }).lean();
+    if (!findKerntaak) throw new HttpException(409, "Kerntaak met gegeven id bestaat niet");
+
+    return findKerntaak;
+  }
+
+  public async create(kerntaakData: Kerntaak): Promise<Kerntaak> {
+    const createKerntaakData: Kerntaak = await KerntaakModel.create(
+      { ...kerntaakData }
+    )
+
+    return createKerntaakData;
+  }
+
+  public async update(kerntaakId: string, kerntaak: Kerntaak): Promise<Kerntaak> {
+    const findKerntaak: Kerntaak = await KerntaakModel.findOne({ id: kerntaakId }).lean()
+    let updatedKerntaak: Kerntaak;
+
+    if (findKerntaak) {
+      updatedKerntaak = {
+        ...findKerntaak,
+        ...kerntaak
+      }
+    } else {
+      throw new HttpException(400, `This kerntaak ${kerntaak.code} doesn't exits.`);
     }
 
-    public async findById(kerntaakId: string): Promise<Kerntaak> {
-        const findKerntaak: Kerntaak = await KerntaakModel.findOne({ id: kerntaakId });
-        if (!findKerntaak) throw new HttpException(409, "Kerntaak met gegeven id bestaat niet");
+    const previouseKerntaak = await KerntaakModel.findOneAndUpdate(
+      { id: kerntaakId },
+      { ...updatedKerntaak }
+    )
 
-        return findKerntaak;
+    if (previouseKerntaak) {
+      return updatedKerntaak
+    } else {
+      throw new HttpException(400, `Error while updating ${kerntaak.code}.`);
     }
+  }
+
+  public async delete(kerntaakId: string): Promise<Kerntaak> {
+    const deletedKerntaak: Kerntaak = await KerntaakModel.findOneAndDelete(
+      { id: kerntaakId }
+    ).lean()
+
+    return deletedKerntaak;
+  }
+
 }

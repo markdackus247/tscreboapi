@@ -40,7 +40,8 @@ export const KerntaakSchema: Schema = new Schema({
     }
 },
     {
-        timestamps: true
+        timestamps: true,
+        collection: 'kerntaak'
     }
 );
 

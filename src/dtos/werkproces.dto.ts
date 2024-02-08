@@ -28,6 +28,7 @@ export class CreateWerkprocesDto {
     })
     public informalName: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
@@ -35,6 +36,7 @@ export class CreateWerkprocesDto {
     })
     public description: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {
@@ -42,6 +44,7 @@ export class CreateWerkprocesDto {
     })
     public outcome: string;
     
+    @IsOptional()
     @IsString()
     @IsAscii()
     @MaxLength(1024, {

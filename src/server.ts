@@ -1,11 +1,18 @@
 import { App } from '@/app';
 import { AuthRoute } from '@routes/auth.route';
-import { UserRoute } from '@routes/users.route';
 import { WerkprocesRoute } from './routes/werkproces.route';
 import { ValidateEnv } from '@utils/validateEnv';
+import { KerntaakRoute } from './routes/kerntaak.route';
+import { CreboRoute } from './routes/crebo.route';
 
 ValidateEnv();
 
-const app = new App([new UserRoute(), new AuthRoute(), new WerkprocesRoute()]);
+const app = new App([
+    new AuthRoute(),
+    new CreboRoute(),
+    new KerntaakRoute(),
+    new WerkprocesRoute()
+]);
+
 
 app.listen();
