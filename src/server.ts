@@ -9,9 +9,9 @@ ValidateEnv();
 
 const app = new App([
     new AuthRoute(),
-    new CreboRoute(),
+    new WerkprocesRoute(),
     new KerntaakRoute(),
-    new WerkprocesRoute()
+    new CreboRoute(),
 ]);
 
 

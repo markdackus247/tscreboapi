@@ -5,7 +5,7 @@ import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 
 export class KerntaakRoute implements Routes {
-    public path = '/kerntaak';
+    public path = '/crebo/:cid/kerntaak';
     public router = Router();
     public kerntaak = new KerntaakController();
 

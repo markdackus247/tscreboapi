@@ -1,14 +1,19 @@
 import { Service } from 'typedi';
-import { HttpException } from '@/exceptions/httpException';
-import { Kerntaak } from '@/interfaces/kerntaak.interface';
-import { KerntaakModel } from '@/models/kerntaak.models';
+import { HttpException } from '@exceptions/httpException';
+import { Kerntaak } from '@interfaces/kerntaak.interface';
+import { KerntaakModel } from '@models/kerntaak.models';
+import { Crebo } from '@interfaces/crebo.interface';
+import { CreboModel } from '@models/crebo.models';
+
 
 @Service()
 export class KerntaakService {
-  public async findAll(): Promise<Kerntaak[]> {
-    const kerntaken: Kerntaak[] = await KerntaakModel.find().lean();
+  public async findAll(creboId: string): Promise<Kerntaak[]> {
+    const crebo: Crebo[] = await CreboModel.find(
+      { id: creboId }
+    ).lean();
 
-    return kerntaken;
+    return crebo[0].kerntaken;
   }
 
   public async findById(kerntaakId: string): Promise<Kerntaak> {

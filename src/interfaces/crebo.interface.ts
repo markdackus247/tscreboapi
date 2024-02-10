@@ -12,20 +12,20 @@ export type MBOLevels = "1" | "2" | "3" | "4" | ""
  * The types for the kerntaken is stored in its own interface: Kerntaak.
  */
 export interface Crebo {
-    /*
-     * _id stores the MongoDB id of the document.
-     * _id isn't being used by this application.
-     */
-    _id?: string;
+  /*
+   * _id stores the MongoDB id of the document.
+   * _id isn't being used by this application.
+   */
+  _id?: string;
 
-    
-    id: string;
-    creboNumber: string;
-    level: MBOLevels;
-    name: string;
-    description?: string;
-    sbblink?: string;
-    kdpdflink?: string;
-    fileCode?: string;
-    kerntaken?: [Kerntaak]
+
+  id: string;
+  creboNumber: string;
+  level: MBOLevels;
+  name: string;
+  description?: string;
+  sbblink?: string;
+  kdpdflink?: string;
+  fileCode?: string;
+  kerntaken?: [Kerntaak]
 }
